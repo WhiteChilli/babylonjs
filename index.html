@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Babylon</title>
+  <script src="https://cdn.babylonjs.com/babylon.max.js"></script>
+    <style>
+        #canvas {
+          width: 100%;
+          height: 100%;
+        }
+    </style>
+</head>
+<body>
+  <canvas id="canvas">
+  </canvas>
+  <script>
+    window.addEventListener("DOMContentLoaded", function() {
+      const canvas = document.getElementById("canvas");
+      const engine = new BABYLON.Engine(canvas, true);
+    
+      const createScene = function () {
+        const scene = new BABYLON.Scene(engine);
+        scene.clearColor = new BABYLON.Color3.Black();
+
+        const camera = new BABYLON.FreeCamera("camera1",
+          new BABYLON.Vector3(5,4,-10), scene);
+
+
+          
+        camera.setTarget(BABYLON.Vector3.Zero());
+        camera.attachControl(canvas, true);
+
+        camera.keysUp.push(87);
+        camera.keysDown.push(83);
+        camera.keysLeft.push(65);
+        camera.keysRight.push(68);
+
+        const material = new BABYLON.StandardMaterial("material", scene);
+        const material2 = new BABYLON.StandardMaterial("material2", scene);
+        const material3 = new BABYLON.StandardMaterial("material3", scene);
+        const material4 = new BABYLON.StandardMaterial("material4", scene);
+
+        // material1.wireframe = true;
+
+        material.diffuseTexture = new BABYLON.Texture("https://i.ibb.co/hcK5FPz/moon.jpg")
+        material2.diffuseTexture = new BABYLON.Texture("https://i.ibb.co/GCsSzP0/galaxy3.jpg", scene);
+        material3.diffuseTexture = new BABYLON.Texture("https://i.ibb.co/LC2mCrF/galaxy.jpg", scene);
+        material4.diffuseTexture = new BABYLON.Texture("https://i.ibb.co/5ssCpG7/galaxy2.jpg", scene);
+
+      
+
+        const sphere = BABYLON.MeshBuilder.CreateSphere("Sphere", {
+          segments: 32,
+          diameter: 2},
+           scene);
+
+
+        const sphere1 = BABYLON.MeshBuilder.CreateSphere("Sphere1", {
+          segments: 32,
+          diameter: 3},
+           scene);
+
+
+        const sphere2 = BABYLON.MeshBuilder.CreateSphere("Sphere2", {
+          segments: 32,
+          diameter: 0.5},
+           scene);   
+
+
+        const sphere3 = BABYLON.MeshBuilder.CreateSphere("Sphere3", {
+          segments: 32,
+          diameter: 2},
+           scene);
+
+        sphere1.material = material;
+        sphere2.material = material2;
+        sphere3.material = material3;
+        sphere.material = material4;
+
+
+        sphere.position = new BABYLON.Vector3(6,0,0);
+        sphere1.position = new BABYLON.Vector3(0,0,-5);
+        sphere2.position = new BABYLON.Vector3(3,2,0);
+        sphere3.position = new BABYLON.Vector3(2,0,0);
+
+
+        const light = new BABYLON.HemisphericLight("hemLight", new BABYLON.Vector3(5,10,5), scene);
+
+        return scene;
+
+      }
+      
+      const scene = createScene();
+      engine.runRenderLoop(function() {
+        scene.render();
+        });
+      });
+    
+  </script>
+
+
+
+</body>
+</html>
